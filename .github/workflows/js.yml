@@ -1,0 +1,26 @@
+name: JS
+
+on: push
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build_js:
+    strategy:
+      fail-fast: true
+
+    name: Build js package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install node deps and founry
+        uses: ./.github/actions/setup_deps
+
+      - name: Build js package
+        run: |
+          yarn turbo run build
+
+      - name: Test js package
+        run: |
+          yarn turbo run test:js
