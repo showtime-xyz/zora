@@ -27,13 +27,13 @@ type SalesConfig @entity(immutable: true) {
 }
 
 type ZoraCreate721Factory @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   address: Bytes!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   implementation: Bytes!
   version: String!
@@ -42,13 +42,13 @@ type ZoraCreate721Factory @entity {
 }
 
 type MintComment @entity @immutable {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   address: Bytes!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   tokenAndContract: ZoraCreateToken!
   sender: Bytes!
@@ -58,13 +58,13 @@ type MintComment @entity @immutable {
 }
 
 type TokenSale @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   address: Bytes!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   tokenAndContract: ZoraCreateToken!
 
@@ -90,13 +90,13 @@ type TokenSale @entity {
 # }
 
 type Upgrade @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   impl: Bytes
   type: String
@@ -124,12 +124,12 @@ type DropMetadata @entity {
 # 1155 Records
 
 type ZoraCreate1155Factory @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   fixedPriceSaleStrategyAddress: Bytes!
   redeemMinterStrategyAddress: Bytes
@@ -139,12 +139,12 @@ type ZoraCreate1155Factory @entity {
 }
 
 type ZoraCreateContract @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   address: Bytes!
 
@@ -177,12 +177,12 @@ type ZoraCreateContract @entity {
 }
 
 type ZoraCreatorPermission @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   user: Bytes!
   contract: ZoraCreateContract
@@ -198,12 +198,12 @@ type ZoraCreatorPermission @entity {
 }
 
 type ZoraCreateToken @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   address: Bytes!
 
@@ -241,25 +241,25 @@ type ZoraCreateToken @entity {
 }
 
 type KnownRenderer @entity(immutable: true) {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   isEdition: Boolean
 }
 
 type OnChainMetadataHistory @entity(immutable: true) {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   tokenAndContract: ZoraCreateToken!
 
@@ -276,13 +276,13 @@ type OnChainMetadataHistory @entity(immutable: true) {
 }
 
 type SalesConfigFixedPriceSaleStrategy @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   configAddress: Bytes!
 
@@ -297,12 +297,12 @@ type SalesConfigFixedPriceSaleStrategy @entity {
 }
 
 type ZoraCreatorRedeemConfig @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   creatorAddress: Bytes!
   minterAddress: Bytes!
@@ -330,13 +330,13 @@ type RedeemInstructions @entity(immutable: true) {
 }
 
 type RedeemMinterProcessed @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   redeemMinter: SalesConfigRedeemMinterStrategy!
 
@@ -356,13 +356,13 @@ type RedeemProcessedTokenPair @entity(immutable: true) {
 }
 
 type SalesConfigRedeemMinterStrategy @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   configAddress: Bytes!
   target: Bytes!
@@ -378,13 +378,13 @@ type SalesConfigRedeemMinterStrategy @entity {
 }
 
 type SalesConfigMerkleMinterStrategy @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   configAddress: Bytes!
 
@@ -398,13 +398,13 @@ type SalesConfigMerkleMinterStrategy @entity {
 }
 
 type SalesStrategyConfig @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   tokenAndContract: ZoraCreateToken
   contract: ZoraCreateContract
@@ -499,13 +499,13 @@ type RewardsPerUserPerType @entity {
 }
 
 type RewardsDeposit @entity @immutable {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   from: Bytes!
   creator: Bytes!
@@ -521,13 +521,13 @@ type RewardsDeposit @entity @immutable {
 }
 
 type RewardsSingleDeposit @entity @immutable {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   from: Bytes!
   to: Bytes!
@@ -537,13 +537,13 @@ type RewardsSingleDeposit @entity @immutable {
 }
 
 type RewardsWithdraw @entity @immutable {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   from: Bytes!
   to: Bytes!
@@ -609,13 +609,13 @@ type MintAccountBalance @entity {
 ### ERC20 Minter
 
 type SalesConfigERC20Minter @entity {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   configAddress: Bytes!
 
@@ -631,13 +631,13 @@ type SalesConfigERC20Minter @entity {
 }
 
 type ERC20RewardsDeposit @entity @immutable {
-  # Begin – default data block
+  # Begin – default data block
   id: ID!
   txn: TransactionInfo!
   block: BigInt!
   address: Bytes!
   timestamp: BigInt!
-  # End – default data block
+  # End – default data block
 
   collection: Bytes!
   mintReferral: Bytes!

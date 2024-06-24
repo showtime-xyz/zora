@@ -2,36 +2,36 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-{{#protocolRewards}}
-  - name: ProtocolRewardsV{{version}}
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: ProtocolRewards
-      address: "{{address}}"
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      entities:
-        - RewardsPerUserPerDay
-        - RewardsPerUser
-        - RewardsStandardDeposit
-        - RewardsCustomDeposit
-        - RewardsWithdraw
-      language: wasm/assemblyscript
-      file: ./src/RewardsMappings/rewardsMappings.ts
-      abis:
-        - name: ProtocolRewards
-          file: ./abis/ProtocolRewards.json  
-      eventHandlers:
-        - event: Deposit(indexed address,indexed address,indexed bytes4,uint256,string)
-          handler: handleDeposit
-        - event: RewardsDeposit(indexed address,indexed address,indexed address,address,address,address,uint256,uint256,uint256,uint256,uint256)
-          handler: handleRewardsDeposit
-        - event: Withdraw(indexed address,indexed address,uint256)
-          handler: handleWithdraw
-{{/protocolRewards}}
+# {{#protocolRewards}}
+#   - name: ProtocolRewardsV{{version}}
+#     kind: ethereum/contract
+#     network: {{network}}
+#     source:
+#       abi: ProtocolRewards
+#       address: "{{address}}"
+#       startBlock: {{startBlock}}
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.7
+#       entities:
+#         - RewardsPerUserPerDay
+#         - RewardsPerUser
+#         - RewardsStandardDeposit
+#         - RewardsCustomDeposit
+#         - RewardsWithdraw
+#       language: wasm/assemblyscript
+#       file: ./src/RewardsMappings/rewardsMappings.ts
+#       abis:
+#         - name: ProtocolRewards
+#           file: ./abis/ProtocolRewards.json  
+#       eventHandlers:
+#         - event: Deposit(indexed address,indexed address,indexed bytes4,uint256,string)
+#           handler: handleDeposit
+#         - event: RewardsDeposit(indexed address,indexed address,indexed address,address,address,address,uint256,uint256,uint256,uint256,uint256)
+#           handler: handleRewardsDeposit
+#         - event: Withdraw(indexed address,indexed address,uint256)
+#           handler: handleWithdraw
+# {{/protocolRewards}}
 {{#factories1155}}
   - kind: ethereum/contract
     name: ZoraNFTCreatorFactory1155V{{version}}
@@ -62,34 +62,34 @@ dataSources:
           handler: handle1155FactoryUpgraded
       file: ./src/ERC1155Mappings/factoryMappings.ts
 {{/factories1155}}
-{{#factories721}}
-  - kind: ethereum/contract
-    name: Zora721V{{version}}
-    network: {{network}}
-    source:
-      address: "{{address}}"
-      abi: ZoraNFTCreatorV1
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - ZoraCreateContract
-        - ZoraCreateToken
-        - MetadataInfo
-      abis:
-        - name: ZoraNFTCreatorV1
-          file: ./abis/ZoraNFTCreatorV1.json
-        - name: ERC721Drop
-          file: ./abis/ERC721Drop.json
-      eventHandlers:
-        - event: CreatedDrop(indexed address,indexed address,uint256)
-          handler: handleCreatedDrop
-        - event: Upgraded(indexed address)
-          handler: handleFactoryUpgraded
-      file: ./src/ERC721Mappings/ERC721FactoryMappings.ts
-{{/factories721}}
+# {{#factories721}}
+#   - kind: ethereum/contract
+#     name: Zora721V{{version}}
+#     network: {{network}}
+#     source:
+#       address: "{{address}}"
+#       abi: ZoraNFTCreatorV1
+#       startBlock: {{startBlock}}
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.7
+#       language: wasm/assemblyscript
+#       entities:
+#         - ZoraCreateContract
+#         - ZoraCreateToken
+#         - MetadataInfo
+#       abis:
+#         - name: ZoraNFTCreatorV1
+#           file: ./abis/ZoraNFTCreatorV1.json
+#         - name: ERC721Drop
+#           file: ./abis/ERC721Drop.json
+#       eventHandlers:
+#         - event: CreatedDrop(indexed address,indexed address,uint256)
+#           handler: handleCreatedDrop
+#         - event: Upgraded(indexed address)
+#           handler: handleFactoryUpgraded
+#       file: ./src/ERC721Mappings/ERC721FactoryMappings.ts
+# {{/factories721}}
 {{#preminter}}
   - kind: ethereum/contract
     name: ZoraCreator1155PremintExecutorV{{version}}
@@ -114,37 +114,37 @@ dataSources:
         - event: PremintedV2(indexed address,indexed uint256,indexed bool,uint32,address,uint256)
           handler: handlePremintedV2
 {{/preminter}}
-{{#reserveAuctionV3}}
-  - name: ReserveAuctionV3
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: ReserveAuctionV3
-      address: "{{address}}"
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      entities:
-        - Auction
-        - AuctionBid
-      language: wasm/assemblyscript
-      file: ./src/ReserveAuctionV3Mappings/reserveAuctionV3Mappings.ts
-      abis:
-        - name: ReserveAuctionV3
-          file: ./abis/ReserveAuctionV3.json  
-      eventHandlers:
-        - event: AuctionCreated(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
-          handler: handleAuctionCreated
-        - event: AuctionBid(indexed address,indexed uint256,bool,bool,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
-          handler: handleAuctionBid
-        - event: AuctionCanceled(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
-          handler: handleAuctionCanceled
-        - event: AuctionEnded(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
-          handler: handleAuctionEnded
-        - event: AuctionReservePriceUpdated(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
-          handler: handleAuctionReservePriceUpdated
-{{/reserveAuctionV3}}
+# {{#reserveAuctionV3}}
+#   - name: ReserveAuctionV3
+#     kind: ethereum/contract
+#     network: {{network}}
+#     source:
+#       abi: ReserveAuctionV3
+#       address: "{{address}}"
+#       startBlock: {{startBlock}}
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.7
+#       entities:
+#         - Auction
+#         - AuctionBid
+#       language: wasm/assemblyscript
+#       file: ./src/ReserveAuctionV3Mappings/reserveAuctionV3Mappings.ts
+#       abis:
+#         - name: ReserveAuctionV3
+#           file: ./abis/ReserveAuctionV3.json  
+#       eventHandlers:
+#         - event: AuctionCreated(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
+#           handler: handleAuctionCreated
+#         - event: AuctionBid(indexed address,indexed uint256,bool,bool,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
+#           handler: handleAuctionBid
+#         - event: AuctionCanceled(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
+#           handler: handleAuctionCanceled
+#         - event: AuctionEnded(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
+#           handler: handleAuctionEnded
+#         - event: AuctionReservePriceUpdated(indexed address,indexed uint256,(address,address,uint256,uint256,address,uint96,address,uint96,address,uint80,uint16))
+#           handler: handleAuctionReservePriceUpdated
+# {{/reserveAuctionV3}}
 {{#zoraMints}}
   - name: ZoraMints
     kind: ethereum/contract
@@ -172,56 +172,56 @@ dataSources:
         - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
           handler: handleTransferBatch
 {{/zoraMints}}
-{{#mintsManager}}
-  - name: MintsManager
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: MintsManager
-      address: "{{address}}"
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      entities:
-        - MintComment
-      language: wasm/assemblyscript
-      file: ./src/MintsMappings/mintsManagerMappings.ts
-      abis:
-        - name: MintsManager
-          file: ./abis/ZoraMintsManagerImpl.json  
-      eventHandlers:
-        - event: MintComment(indexed address,indexed address,indexed uint256,uint256,string)
-          handler: handleMintComment
-{{/mintsManager}}
-{{#erc20Minter}}
-  - name: ERC20Minter{{version}}
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: ERC20Minter
-      address: "{{address}}"
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      entities:
-        - SalesConfigERC20Minter
-        - MintComment
-        - ERC20RewardsDeposit
-      language: wasm/assemblyscript
-      file: ./src/ERC1155Mappings/ERC20MinterMappings.ts
-      abis:
-        - name: ERC20Minter
-          file: ./abis/ERC20Minter.json
-      eventHandlers:
-        - event: SaleSet(indexed address,indexed uint256,(uint64,uint64,uint64,uint256,address,address))
-          handler: handleERC20MinterSaleSet
-        - event: MintComment(indexed address,indexed address,indexed uint256,uint256,string)
-          handler: handleMintComment
-        - event:  ERC20RewardsDeposit(indexed address,indexed address,indexed address,address,address,address,uint256,uint256,uint256,uint256,uint256)
-          handler: handleERC20RewardsDeposit
-{{/erc20Minter}}
+# {{#mintsManager}}
+#   - name: MintsManager
+#     kind: ethereum/contract
+#     network: {{network}}
+#     source:
+#       abi: MintsManager
+#       address: "{{address}}"
+#       startBlock: {{startBlock}}
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.7
+#       entities:
+#         - MintComment
+#       language: wasm/assemblyscript
+#       file: ./src/MintsMappings/mintsManagerMappings.ts
+#       abis:
+#         - name: MintsManager
+#           file: ./abis/ZoraMintsManagerImpl.json  
+#       eventHandlers:
+#         - event: MintComment(indexed address,indexed address,indexed uint256,uint256,string)
+#           handler: handleMintComment
+# {{/mintsManager}}
+# {{#erc20Minter}}
+#   - name: ERC20Minter{{version}}
+#     kind: ethereum/contract
+#     network: {{network}}
+#     source:
+#       abi: ERC20Minter
+#       address: "{{address}}"
+#       startBlock: {{startBlock}}
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.7
+#       entities:
+#         - SalesConfigERC20Minter
+#         - MintComment
+#         - ERC20RewardsDeposit
+#       language: wasm/assemblyscript
+#       file: ./src/ERC1155Mappings/ERC20MinterMappings.ts
+#       abis:
+#         - name: ERC20Minter
+#           file: ./abis/ERC20Minter.json
+#       eventHandlers:
+#         - event: SaleSet(indexed address,indexed uint256,(uint64,uint64,uint64,uint256,address,address))
+#           handler: handleERC20MinterSaleSet
+#         - event: MintComment(indexed address,indexed address,indexed uint256,uint256,string)
+#           handler: handleMintComment
+#         - event:  ERC20RewardsDeposit(indexed address,indexed address,indexed address,address,address,address,uint256,uint256,uint256,uint256,uint256)
+#           handler: handleERC20RewardsDeposit
+# {{/erc20Minter}}
 templates:
   - name: MetadataInfo
     kind: file/ipfs
