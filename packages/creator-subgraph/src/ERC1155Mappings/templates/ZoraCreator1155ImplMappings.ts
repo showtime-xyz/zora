@@ -186,7 +186,8 @@ function _updateHolderTransfer(
   from: Address,
   to: Address,
   id: BigInt,
-  value: BigInt
+  value: BigInt,
+  txn: string | null,
 ): BigInt {
   let tokenHolderCountChange = new BigInt(0);
   if (!to.equals(Address.zero())) {
@@ -202,6 +203,9 @@ function _updateHolderTransfer(
       holder.balance = holder.balance.plus(value);
     }
     holder.lastUpdatedBlock = blockNumber;
+    if (txn) {
+      holder.txn = txn;
+    }
     holder.save();
   } else {
     const fromHolder = Token1155Holder.load(
@@ -210,6 +214,9 @@ function _updateHolderTransfer(
     if (fromHolder) {
       fromHolder.balance = fromHolder.balance.minus(value);
       fromHolder.lastUpdatedBlock = blockNumber;
+      if (txn) {
+        fromHolder.txn = txn;
+      }
       fromHolder.save();
       if (fromHolder.balance.equals(BigInt.zero())) {
         tokenHolderCountChange = tokenHolderCountChange.minus(new BigInt(1));
@@ -294,17 +301,23 @@ export function handleUpdatedToken(event: UpdatedToken): void {
 
 // update the minted number and mx number
 export function handleTransferSingle(event: TransferSingle): void {
+  const token = ZoraCreateToken.load(
+    getTokenId(event.address, event.params.id)
+  );
+
+  let txn: string | null = null
+  if (token) {
+    txn = token.txn;
+  }
+
   const newHolderNumber = _updateHolderTransfer(
     event.block.number,
     event.address,
     event.params.from,
     event.params.to,
     event.params.id,
-    event.params.value
-  );
-
-  const token = ZoraCreateToken.load(
-    getTokenId(event.address, event.params.id)
+    event.params.value,
+    txn
   );
 
   if (!token) {
@@ -329,16 +342,24 @@ export function handleTransferSingle(event: TransferSingle): void {
 export function handleTransferBatch(event: TransferBatch): void {
   if (event.params.from.equals(Address.zero())) {
     for (let i = 0; i < event.params.ids.length; i++) {
+      const tokenId = getTokenId(event.address, event.params.ids[i]);
+      const token = ZoraCreateToken.load(tokenId);
+
+      let txn: string | null = null
+      if (token) {
+        txn = token.txn;
+      }
+
       const newTokenHolderBalance = _updateHolderTransfer(
         event.block.number,
         event.address,
         event.params.from,
         event.params.to,
         event.params.ids[i],
-        event.params.values[i]
+        event.params.values[i],
+        txn
       );
-      const tokenId = getTokenId(event.address, event.params.ids[i]);
-      const token = ZoraCreateToken.load(tokenId);
+
       if (token) {
         token.holders1155Number = token.holders1155Number.plus(
           newTokenHolderBalance
@@ -350,16 +371,24 @@ export function handleTransferBatch(event: TransferBatch): void {
     }
   } else if (event.params.to.equals(Address.zero())) {
     for (let i = 0; i < event.params.ids.length; i++) {
+      const tokenId = getTokenId(event.address, event.params.ids[i]);
+      const token = ZoraCreateToken.load(tokenId);
+
+      let txn: string | null = null
+      if (token) {
+        txn = token.txn;
+      }
+
       const newTokenHolderBalance = _updateHolderTransfer(
         event.block.number,
         event.address,
         event.params.from,
         event.params.to,
         event.params.ids[i],
-        event.params.values[i]
+        event.params.values[i],
+        txn
       );
-      const tokenId = getTokenId(event.address, event.params.ids[i]);
-      const token = ZoraCreateToken.load(tokenId);
+
       if (token) {
         token.holders1155Number = token.holders1155Number.plus(
           newTokenHolderBalance
@@ -370,16 +399,25 @@ export function handleTransferBatch(event: TransferBatch): void {
     }
   } else {
     for (let i = 0; i < event.params.ids.length; i++) {
+      const tokenId = getTokenId(event.address, event.params.ids[i]);
+      const token = ZoraCreateToken.load(tokenId);
+
+
+      let txn: string | null = null
+      if (token) {
+        txn = token.txn;
+      }
+
       const newTokenHolderBalance = _updateHolderTransfer(
         event.block.number,
         event.address,
         event.params.from,
         event.params.to,
         event.params.ids[i],
-        event.params.values[i]
+        event.params.values[i],
+        txn
       );
-      const tokenId = getTokenId(event.address, event.params.ids[i]);
-      const token = ZoraCreateToken.load(tokenId);
+
       if (token) {
         token.holders1155Number = token.holders1155Number.plus(
           newTokenHolderBalance

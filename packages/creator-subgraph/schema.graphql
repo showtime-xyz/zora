@@ -447,6 +447,7 @@ type Token1155Holder @entity {
   lastUpdatedBlock: BigInt!
   tokenAndContract: ZoraCreateToken!
   balance: BigInt!
+  txn: TransactionInfo
 }
 
 ### Protocol Rewards

@@ -6,6 +6,7 @@ Run `yarn` and `yarn build` at root of contracts to build contracts (need `forge
 Then run `NETWORK=base-sepolia yarn run build` or `NETWORK=base-mainnet yarn run build` to build subgraph in this dir.
 
 Then run goldsky command to deploy subgraph.
+`cd packages/creator-subgraph`
 `goldsky subgraph deploy drakula-zora-base-sepolia/0.2.8`
 
 And create webhook for subgraph.
